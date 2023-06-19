@@ -4,7 +4,7 @@ import styles from './page.module.css'
 import {notFound} from 'next/navigation'
 
 async function getData(id) {
-  const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, 
+  const res = await fetch(`http://localhost:3000/api/posts/${id}`, 
     { cache: 'no-store' })
   
   if (!res.ok) {
@@ -24,24 +24,22 @@ const BlogPost = async ({params}) => {
             {data.title}
             </h1>
           <p className={styles.desc}>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
-            Accusamus minima aperiam eveniet iure sed repellat magnam nostrum omnis, 
-            dolore nulla.
+            {data.desc}
           </p>
           <div className={styles.author}>
             <Image
-              src="https://images.pexels.com/photos/9060352/pexels-photo-9060352.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
+              src={data.img}
               alt=""
               width={40}
               height={40}
               className={styles.avatar}
             />
-            <span className={styles.username}>John Doe</span>
+            <span className={styles.username}>{data.username}</span>
           </div>
         </div>
         <div className={styles.imageContainer}>
           <Image
-            src="https://images.pexels.com/photos/9060352/pexels-photo-9060352.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
+            src={data.img}
             alt=""
             fill={true}
             className={styles.image}
@@ -50,11 +48,7 @@ const BlogPost = async ({params}) => {
       </div>
       <div className={styles.content}>
         <p className={styles.text}>
-         Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-          Expedita, id quod voluptate dolorum porro maiores eligendi distinctio vitae consectetur harum. 
-          Animi temporibus veritatis possimus minima, tenetur error iste assumenda enim eaque labore dicta, 
-          cupiditate eligendi eius deleniti saepe vitae sequi. Illo rerum illum ipsum pariatur quae. 
-          Quaerat odio laudantium distinctio!
+        {data.content}
         </p>
       </div>
     </div>
