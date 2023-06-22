@@ -1,4 +1,5 @@
 "use client"
+import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link'
 import React from 'react'
 import DarkModeToggle from '../DarkModeToggle/DarkModeToggle';
@@ -38,6 +39,7 @@ const links = [
   ];
 
 const Navbar = () => {
+  const session = useSession();
   return (
     <div className={styles.container}>
         <Link href="/" className={styles.logo}>JayJay</Link>
@@ -45,13 +47,19 @@ const Navbar = () => {
           <DarkModeToggle/>
           {links.map((link)=>(
             <Link key={link.id} href={link.url} className={styles.link}> 
-            {link.title}</Link>
+            {link.title}
+            </Link>
           ))}
-          <button 
-          className={styles.logout}
-           onClick={()=>{
-            console.log("logged out");
-          }}>logout</button>
+          {session.status === "authenticated" && (
+
+            
+            <button 
+            className={styles.logout}
+            onClick={signOut}
+            >
+            logout</button>
+          )
+          }
         </div>
     </div>
   )
